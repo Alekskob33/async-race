@@ -37,6 +37,7 @@ class Car implements TCar {
       }
     } catch (message) {
       console.log(message);
+      throw message;
     }
   }
 
@@ -65,7 +66,7 @@ class Car implements TCar {
   async selectDriveMode({ id }: { id: number }) {
     const url = getUrl<{ id: number; status: string }>('/engine', { id, status: 'drive' });
     try {
-      console.log('Drive Mode is selected!');
+      console.log('Switch Drive Mode...');
       const response = await fetch(url, { method: 'PATCH' });
 
       if (!response.ok) {
@@ -77,6 +78,8 @@ class Car implements TCar {
       }
       this.status = 'drive';
       const body = (await response.json()) as string;
+
+      console.log('Finished !');
       console.log(body);
     } catch (message) {
       console.log(message);
@@ -85,8 +88,12 @@ class Car implements TCar {
 
   async go(carParams: targetCar) {
     const { id } = carParams;
-    await this.startEngine({ id });
-    await this.selectDriveMode({ id });
+    try {
+      await this.startEngine({ id });
+      await this.selectDriveMode({ id });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
