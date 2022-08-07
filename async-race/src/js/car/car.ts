@@ -7,19 +7,21 @@ class Car implements TCar {
   name: string;
   color: string;
   status: string; // started | stopped | drive
+  duration: number;
 
   constructor(name: string, color: string, status = 'stopped') {
     this.name = name;
     this.color = color;
     this.status = status;
+    this.duration = 0;
   }
 
   async startEngine({ id }: { id: number }) {
     const url = getUrl<{ id: number; status: string }>('/engine', { id, status: 'started' });
-    const response = await fetch(url, { method: 'PATCH' });
-
-    console.log('Trying to start Engine ...');
     try {
+      console.log('Trying to start Engine ...');
+      const response = await fetch(url, { method: 'PATCH' });
+
       if (!response.ok) {
         const message = await response.text();
         throw message;
@@ -28,8 +30,10 @@ class Car implements TCar {
           velocity: string;
           distance: string;
         };
+        this.duration = calcDuration(body);
+        this.status = 'started';
         console.log(body);
-        const duration = calcDuration(body);
+        console.log(this.duration);
       }
     } catch (message) {
       console.log(message);
@@ -38,10 +42,10 @@ class Car implements TCar {
 
   async stopEngine({ id }: { id: number }) {
     const url = getUrl<{ id: number; status: string }>('/engine', { id, status: 'stopped' });
-    const response = await fetch(url, { method: 'PATCH' });
-
-    console.log('Trying to stop Engine ...');
     try {
+      console.log('Trying to stop Engine ...');
+      const response = await fetch(url, { method: 'PATCH' });
+
       if (!response.ok) {
         const message = await response.text();
         throw message;
@@ -50,6 +54,7 @@ class Car implements TCar {
           velocity: string;
           distance: string;
         };
+        this.status = 'stopped';
         console.log(body);
       }
     } catch (message) {
@@ -59,14 +64,18 @@ class Car implements TCar {
 
   async selectDriveMode({ id }: { id: number }) {
     const url = getUrl<{ id: number; status: string }>('/engine', { id, status: 'drive' });
-    const response = await fetch(url, { method: 'PATCH' });
-
     try {
+      console.log('Drive Mode is selected!');
+      const response = await fetch(url, { method: 'PATCH' });
+
       if (!response.ok) {
         const message = await response.text();
+        if (response.status >= 500) {
+          console.log('Ohh, no! The engine has been broken. Stop now!');
+        }
         throw message;
       }
-
+      this.status = 'drive';
       const body = (await response.json()) as string;
       console.log(body);
     } catch (message) {
