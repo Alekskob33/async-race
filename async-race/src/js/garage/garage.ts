@@ -62,7 +62,23 @@ class Garage implements TGarage {
       console.log(error);
     }
   }
-  // deleteCar: () => void;
+
+  async deleteCar({ id }: { id: number }) {
+    const url = getUrl(`/garage/${id}`, {});
+
+    try {
+      const response = await fetch(url, { method: 'DELETE' });
+      if (!response.ok) {
+        const message = 'response was not ok';
+        throw message;
+      } else {
+        const body = (await response.json()) as {}; // empty {}
+        console.log(`car id=${id} was delete; ${body}`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   // updateCar: () => void;
 }
 
