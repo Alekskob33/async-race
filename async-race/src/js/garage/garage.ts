@@ -21,7 +21,23 @@ class Garage implements TGarage {
       console.log(message);
     }
   }
-  // getCar: () => void;
+
+  async getCar({ id }: { id: number }) {
+    const url = getUrl(`/garage/${id}`, {});
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        const message = '404. Not found';
+        throw message;
+      } else {
+        const body = (await response.json()) as TCarProps;
+        console.log(body);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   // createCar: () => void;
   // deleteCar: () => void;
   // updateCar: () => void;
