@@ -79,7 +79,28 @@ class Garage implements TGarage {
       console.log(err);
     }
   }
-  // updateCar: () => void;
+
+  async updateCar({ id, name, color }: { id: number; name: string; color: string }) {
+    const url = getUrl(`/garage/${id}`, {});
+
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, color }),
+      });
+
+      if (!response.ok) {
+        const message = 'response was not ok';
+        throw message;
+      } else {
+        const body = (await response.json()) as TCarProps;
+        console.log(body);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 export default Garage;
