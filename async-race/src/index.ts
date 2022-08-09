@@ -2,6 +2,7 @@ import './style.sass';
 
 import Car from './js/car/car';
 import Garage from './js/garage/garage';
+import Winners from './js/winners/winners';
 
 const Renault = new Car('Logan', 'gray');
 
@@ -19,3 +20,15 @@ const garage = new Garage();
 // garage.getCar({ id: 12 });
 // garage.deleteCar({ id: 4 });
 // garage.updateCar({ id: 3, name: 'Mitsubishi', color: 'red' });
+
+const winners = new Winners();
+// winners.getWinners();
+// winners.getWinner({ id: 1 });
+// winners.createWinner({ id: 4, wins: 2, time: 10 });
+// winners.deleteWinner({ id: 3 });
+// winners.updateWinner({ id: 1, wins: 3, time: 30 });
+
+//   _page?: number;
+//   _limit?: number;
+//   _sort?: 'id' | 'wins' | 'time';
+//   _order?: 'ASC' | 'DESC'
