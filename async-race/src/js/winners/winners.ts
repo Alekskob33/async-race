@@ -2,7 +2,7 @@ import { getUrl } from '../utilities';
 import { TWinners, Opts, winner } from './interface';
 
 class Winners implements TWinners {
-  async getWinners(params: Opts = {}) {
+  static async getWinners(params: Opts = {}) {
     const url = getUrl('/winners', params);
 
     try {
@@ -20,7 +20,7 @@ class Winners implements TWinners {
     }
   }
 
-  async getWinner({ id }: { id: number }) {
+  static async getWinner({ id }: { id: number }) {
     const url = getUrl(`/winners/${id}`, {});
 
     try {
@@ -33,7 +33,7 @@ class Winners implements TWinners {
     }
   }
 
-  async createWinner({ id, wins, time }: winner) {
+  static async createWinner({ id, wins, time }: winner) {
     const url = getUrl('/winners', {});
 
     try {
@@ -54,7 +54,7 @@ class Winners implements TWinners {
     }
   }
 
-  async deleteWinner({ id }: { id: number }) {
+  static async deleteWinner({ id }: { id: number }) {
     const url = getUrl(`/winners/${id}`, {});
 
     try {
@@ -67,7 +67,7 @@ class Winners implements TWinners {
     }
   }
 
-  async updateWinner({ id, wins, time }: winner) {
+  static async updateWinner({ id, wins, time }: winner) {
     const url = getUrl(`/winners/${id}`, {});
 
     try {
@@ -77,7 +77,7 @@ class Winners implements TWinners {
         body: JSON.stringify({ wins, time }),
       });
       if (!response.ok) {
-        const message = await response.json() as {};
+        const message = (await response.json()) as {};
         throw message;
       } else {
         const body = (await response.json()) as winner;
