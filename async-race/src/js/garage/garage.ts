@@ -3,7 +3,7 @@ import { TGarage, TCarProps, paginationOpts } from './interface';
 
 class Garage implements TGarage {
   // constructor() {}
-  async getCars(params: paginationOpts = {}) {
+  static async getCars(params: paginationOpts = {}): Promise<Array<TCarProps>> {
     const url = getUrl<paginationOpts>('/garage', params);
 
     try {
@@ -16,13 +16,14 @@ class Garage implements TGarage {
         const total = params._limit ? response.headers.get('x-total-count') : body.length;
         console.log(body);
         console.log(`total: ${total}`);
+        return body;
       }
     } catch (message) {
       console.log(message);
     }
   }
 
-  async getCar({ id }: { id: number }) {
+  static async getCar({ id }: { id: number }) {
     const url = getUrl(`/garage/${id}`, {});
 
     try {
@@ -39,7 +40,7 @@ class Garage implements TGarage {
     }
   }
 
-  async createCar({ name, color }: { name: string; color: string }) {
+  static async createCar({ name, color }: { name: string; color: string }) {
     const url = getUrl('/garage', {});
 
     try {
@@ -63,7 +64,7 @@ class Garage implements TGarage {
     }
   }
 
-  async deleteCar({ id }: { id: number }) {
+  static async deleteCar({ id }: { id: number }) {
     const url = getUrl(`/garage/${id}`, {});
 
     try {
@@ -80,7 +81,7 @@ class Garage implements TGarage {
     }
   }
 
-  async updateCar({ id, name, color }: { id: number; name: string; color: string }) {
+  static async updateCar({ id, name, color }: { id: number; name: string; color: string }) {
     const url = getUrl(`/garage/${id}`, {});
 
     try {
