@@ -11,23 +11,25 @@ const Renault = new Car('Logan', 'gray');
 // Renault.selectDriveMode({ id: 1 });
 // Renault.go({ id: 2 });
 
-const garage = new Garage();
+// Garage;
 
-// garage.getCars();
-// garage.getCars({ _page: 1, _limit: 2 });
+// Garage.getCars();
+// Garage.getCars({ _page: 1, _limit: 2 });
 
-// garage.createCar({ name: 'Moskwich', color: 'red' });
-// garage.getCar({ id: 12 });
-// garage.deleteCar({ id: 4 });
-// garage.updateCar({ id: 3, name: 'Mitsubishi', color: 'red' });
+// Garage.createCar({ name: 'Moskwich', color: 'red' });
+// Garage.getCar({ id: 12 });
+// Garage.deleteCar({ id: 4 });
+// Garage.updateCar({ id: 3, name: 'Mitsubishi', color: 'red' });
 
-const winners = new Winners();
-// winners.getWinners();
-// winners.getWinner({ id: 1 });
-// winners.createWinner({ id: 4, wins: 2, time: 10 });
-// winners.deleteWinner({ id: 3 });
-// winners.updateWinner({ id: 1, wins: 3, time: 30 });
+// Winners;
 
+// Winners.getWinners();
+// Winners.getWinner({ id: 1 });
+// Winners.createWinner({ id: 4, wins: 2, time: 10 });
+// Winners.deleteWinner({ id: 3 });
+// Winners.updateWinner({ id: 1, wins: 3, time: 30 });
+
+// options
 //   _page?: number;
 //   _limit?: number;
 //   _sort?: 'id' | 'wins' | 'time';
