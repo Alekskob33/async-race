@@ -16,7 +16,7 @@ class Car implements TCar {
     this.duration = 0;
   }
 
-  async startEngine({ id }: { id: number }) {
+  static async startEngine({ id }: { id: number }) {
     const url = getUrl<{ id: number; status: string }>('/engine', { id, status: 'started' });
     try {
       console.log('Trying to start Engine ...');
@@ -30,10 +30,11 @@ class Car implements TCar {
           velocity: string;
           distance: string;
         };
-        this.duration = calcDuration(body);
-        this.status = 'started';
+        // this.duration = calcDuration(body);
+        // this.status = 'started';
         console.log(body);
-        console.log(this.duration);
+        return body;
+        // console.log(this.duration);
       }
     } catch (message) {
       console.log(message);
@@ -41,7 +42,7 @@ class Car implements TCar {
     }
   }
 
-  async stopEngine({ id }: { id: number }) {
+  static async stopEngine({ id }: { id: number }) {
     const url = getUrl<{ id: number; status: string }>('/engine', { id, status: 'stopped' });
     try {
       console.log('Trying to stop Engine ...');
@@ -63,7 +64,7 @@ class Car implements TCar {
     }
   }
 
-  async selectDriveMode({ id }: { id: number }) {
+  static async selectDriveMode({ id }: { id: number }) {
     const url = getUrl<{ id: number; status: string }>('/engine', { id, status: 'drive' });
     try {
       console.log('Switch Drive Mode...');
@@ -86,7 +87,7 @@ class Car implements TCar {
     }
   }
 
-  async go(carParams: targetCar) {
+  static async go(carParams: targetCar) {
     const { id } = carParams;
     try {
       await this.startEngine({ id });
