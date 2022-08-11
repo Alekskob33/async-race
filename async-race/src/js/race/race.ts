@@ -1,5 +1,6 @@
 import { TRace, generatedCarsData } from './interface';
 import { Garage } from '../garage/garage';
+import { Car } from '../car/car';
 
 class Race {
   static generateRandomCars(
@@ -23,6 +24,23 @@ class Race {
     return randomCars;
   }
 
-  // startRace() { }
+  static async startRace() {
+    const cars = await Garage.getCars();
+    const enginePromises = cars.map((car) => {
+      return async () => Cars.startEngine(car.id);
+    });
+    const startedEnginesBodyArray = await Promise.all(enginePromises);
+    // const startedEnginesBodyArray = carsId.map(async (item) => {
+    //   return await Cars.startEngine({ id: item.id });
+    // });
+
+    // 1). запускаем все двигатели (на сервере)
+    // ждем ответа от всех участников
+
+    // 2). запускаем режим 'Drive Mode' для всех машин
+    // ждем ответа от всех учатсников
+
+    // показываем демонстрацию гонки (запускаем анимацию)
+  }
   // resetRace() { }
 }
